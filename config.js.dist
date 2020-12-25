@@ -1,0 +1,4 @@
+export default new Object({
+    mongodb_user: "abc",
+    mongodb_pw: "change_me"
+})
