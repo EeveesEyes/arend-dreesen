@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row mb-4 shadow align-middle cell-header">
-            <div class="col-8  cell-text">
+            <div class="col-8 mt-5 cell-text">
                 <h1 class="row">Arend Dreesen</h1>
                 <div class="row">Heimatdichter</div>
                 <div class="row">1883 - 1928</div>

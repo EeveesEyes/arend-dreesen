@@ -1,8 +1,13 @@
 {
   "light": "#BBB",
-  "accent": "#E5585F",
+  "accent": "#C22",
   "primary": "#2c3e50",
   "secondary": "#ADBED3",
   "darker": "#999",
-  "border": "#A47864"
+  "border": "#A47864",
+  "nav": {
+    "bg":   "#AAB",
+    "highlight": "#DAA",
+    "branch": "#444"
+}
 }

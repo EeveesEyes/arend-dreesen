@@ -1,6 +1,6 @@
 <template>
-    <div class="container shadow d-flex flex-column justify-content-center p-lg-2 p-sm-2 p-md-2">
-        <div v-if="poem" class="poem">
+    <div class="container d-flex flex-column justify-content-center">
+        <div v-if="poem" class="poem shadow m-2 mb-3">
             <h1>{{ poem.title }}</h1>
             <span>{{ poem.inception + poem.source?'in ' + poem.source: ' aus unbekannter Quelle' }} </span>
             <div class="poem-text m-lg-5 p-3"><span>{{ poem.text + poem.text }}</span>

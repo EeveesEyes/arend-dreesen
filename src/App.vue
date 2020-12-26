@@ -1,10 +1,12 @@
 <template>
     <div id="app" class="col">
         <div class="row">
-            <NavBar class="col-sm-12 col-md-12 col-lg-3 col-xl-2 nav-bar" id="nav-bar" :class="activeNav ? 'fadein': 'fadeout'"/>
-            <router-view id="router-view" class="col col-lg-9 col-xl-10 " :class="activeNav ? 'fadein': 'fadeout'"/>
+            <NavBar class="col-sm-12 col-md-3 col-lg-3 col-xl-2 nav-bar" id="nav-bar"
+                    :class="activeNav ? 'fadein': 'fadeout'"/>
+            <router-view id="router-view" class="col col-lg-9 col-xl-10 "
+                         :class="activeNav ? 'col-md-9': ''" @click="routerClicked()"/>
 
-            <b-button v-if="mobile" class="nav-button" v-on:click="toggleNav()">
+            <b-button v-if="screenWidthSM || screenWidthMD" class="nav-button" v-on:click="toggleNav()">
                 <font-awesome-icon :icon="['fas', 'bars']" :class="activeNav ? 'rotate': 'norotate'"/>
             </b-button>
         </div>
@@ -21,7 +23,7 @@
             NavBar
         },
         data() {
-            return {activeNav: true, mobile: false}
+            return {activeNav: false, screenWidthSM: false,  screenWidthMD: false}
         },
         created() {
             EventBus.$on('loaded', () => {
@@ -37,15 +39,21 @@
                 this.activeNav = !this.activeNav;
             },
             foldNavMobile() {
-                if (this.mobile)  this.activeNav = false;
+                if (this.screenWidthSM) this.activeNav = false;
             },
             onResize() {
-                if (window.innerWidth < 992) {
-                    this.mobile = true
+                if (window.innerWidth < 768) {
+                    this.screenWidthSM = true
+                } else  if (window.innerWidth < 992) {
+                    this.screenWidthMD = true
                 } else {
-                    this.mobile = false
+                    this.screenWidthSM = false
+                    this.screenWidthMD = false
                     this.activeNav = true
                 }
+            },
+            routerClicked() {
+                if (this.activeNav) this.activeNav = !this.activeNav
             }
         },
         mounted() {
@@ -58,13 +66,11 @@
 
 <style lang="stylus">
     json('./assets/colors.json')
+
+    ul
+        display inline
+        list-style-type none !important
     #app
-        // COLORS:
-        // #E5D9D3
-        // #D9A6A1
-        // #ADBED3
-        // #E5D68E
-        // #A47864
 
 
         font-family: "DejaVu Serif";
@@ -94,8 +100,9 @@
 
         .nav-button
             top .5rem
-            right .5rem
+            left .5rem
             position absolute
+            z-index: 97;
 
         .rotate {
             transform: rotate(180deg);
@@ -109,10 +116,19 @@
 
         @media (max-width: 992px)
             #router-view
+                right 0
                 position absolute
+
+            #nav-bar
+                z-index 95
+
+        @media (max-width: 768px)
 
             #router-view.fadein
                 transform translateX(100%)
+
+            #router-view.fadeout
+                display none
 
 
     ::-webkit-scrollbar {
