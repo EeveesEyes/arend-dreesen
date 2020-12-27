@@ -2,7 +2,10 @@
     <div class="container d-flex flex-column justify-content-center">
         <div v-if="poem" class="poem shadow m-2 mb-3">
             <h1>{{ poem.title }}</h1>
-            <span>{{ poem.inception + poem.source?'in ' + poem.source: ' aus unbekannter Quelle' }} </span>
+            <span>{{
+                    (poem.inception ? 'Erschienen ' + poem.inception : '') +
+                    (poem.source ? ' in ' + poem.source : ' aus unbekannter Quelle')
+                }} </span>
             <div class="poem-text m-lg-5 p-3"><span>{{ poem.text + poem.text }}</span>
             </div>
         </div>
@@ -41,12 +44,14 @@
 <style lang="stylus" scoped>
     .container
         .poem
+            white-space: pre-wrap
             min-width 100%
 
             .poem-text
                 height 75vh
                 overflow-y auto
                 overflow-x hidden
+
     @media (max-width: 768px)
         .container
             height 100vh

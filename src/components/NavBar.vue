@@ -26,25 +26,27 @@
 </template>
 
 <script>
-    import poems from '../json/gedichte.json'
     import MultilevelAccordion from "vue-multilevel-accordion";
     import {EventBus} from "@/main";
+    import dataService from "@/dataService";
+    import INDEXNAMES from "../../jsonData/indexMap.json"
 
     export default {
         data() {
             return {
-                tree: {
-                    children: [
-                        {
-                            title: "Gedichte",
-                            children: poems
-                        }
-                    ]
-                },
-                poems: poems,
+                tree: {children: []},
                 current: null,
                 activeNav: true
             }
+        },
+        created() {
+            Object.keys(INDEXNAMES).forEach(name => {
+                dataService.getIndex(name).then(result => {
+                    this.tree.children.push({title: INDEXNAMES[name].title, children: result})
+                    // this.poem = result[0];
+                    EventBus.$emit('index-loaded');
+                })
+            });
         },
         name: "NavBar",
         components: {

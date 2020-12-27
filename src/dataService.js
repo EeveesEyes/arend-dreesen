@@ -13,11 +13,16 @@ export default class DataService {
         return this.performQuery('poems', query)
     }
 
-    static async performQuery(index, query) {
-        const url = `${process.env["VUE_APP_DATABASEURL"]}/${index}/_search`
+    static async performQuery(index, query, url = null) {
+        url = url ? url : `${process.env["VUE_APP_DATABASEURL"]}/${index}/_search`
         const result = await ky.post(url, {json: query}).json()
         let resultSet
         resultSet = result.hits.hits.map(hit => hit._source)
         return resultSet
+    }
+
+    static async getIndex(indexName) {
+        const query = {"query": {"match_all": {}}}
+        return this.performQuery(indexName, query)
     }
 }

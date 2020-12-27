@@ -1,0 +1,18 @@
+{
+  "poems": {
+    "filename": "gedichte.json",
+    "title": "Gedichte"
+  },
+  "tales": {
+    "filename": "erzaehlungen.json",
+    "title": "Erzählungen"
+  },
+  "images": {
+    "filename": "bilder.json",
+    "title": "Bilder"
+  },
+  "books": {
+    "filename": "buecher.json",
+    "title": "Bücher"
+  }
+}
